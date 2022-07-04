@@ -3,6 +3,7 @@ const chalk = require('chalk');
 
 const getNotes = (title) => {
     const notes = loadNotes();
+    
     RequestedNote = notes.filter((note) => note.title.toLowerCase() === title.toLowerCase());
     if(RequestedNote.length)
     {
