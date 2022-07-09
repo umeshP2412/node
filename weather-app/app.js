@@ -1,5 +1,7 @@
 const readline = require('readline');
-const request = require('request')
+const request = require('request');
+const forecast = require('./utils/forecast');
+const geocode = require('./utils/geocode');
 
 // const r1 = readline.createInterface({
 //     input: process.stdin,
@@ -33,21 +35,12 @@ const request = require('request')
 //         console.log('Chance of Rain is '+ response.body.current.precip);
 //     }
 // })
+forecast('23.0225','72.5714', (error, data) => {
+    console.log('Error: ',error);
+    console.log('Data', data);
+})
 
-
-const mapurl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/gandhinagar.json?access_token=pk.eyJ1IjoidW1lc2hwMjQiLCJhIjoiY2w1NnpzNnVwMW81ejNubzdtamxmcTc1OCJ9.sIqR7sReArOBkjha9a2sDQ&limit=1';
-
-request({url: mapurl, json: true}, (error, response) => {
-    if(error){
-        console.log('Unable to connect to mapbox!');
-    }
-    else if(response.body.features.length){    
-        const latitude = response.body.features[0].center[1];
-        const longitute = response.body.features[0].center[0];
-        console.log('longitute = ', longitute);
-        console.log('latitude = ', latitude);
-    }
-    else{
-        console.log('Unable to find Place! Try another Search...')
-    }
+geocode('boston', (error, data) => {
+    console.log('Error: ',error);
+    console.log('Data:', data);
 })
