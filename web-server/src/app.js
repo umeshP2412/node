@@ -1,6 +1,8 @@
-const path = require('path')
+const path = require('path');
 const express = require('express');
-const hbs = require('hbs')
+const hbs = require('hbs');
+const forecast = require('./utils/forecast');
+const geocode = require('./utils/geocode');
 
 console.log(__dirname)
 console.log(path.join(__dirname, '../public/'))
@@ -47,10 +49,54 @@ app.get('/help', (req, res) => {
 
 
 app.get('/weather', (req, res) => {
-    
+    if(!req.query.address){
+        return res.send({
+            error: 'You must provide any address!'
+        })
+    }
+
+    geocode(req.query.address, (error, {latitude, longitude, location} = {}) => {
+
+        if(error){
+            // console.log(latitude, longitude)
+            return res.send({
+                Error: error
+            });
+        }
+
+        forecast(latitude,longitude, (error, {description, location, temperature, precipation} = {}) => {
+
+            if(error){
+                return res.send({
+                    Error: error
+                });
+            }
+
+            if(temperature !== undefined){
+                console.log('Current temperature in '+ location + ' is ' + temperature);
+                console.log('Atmosephere feels like there will be '+ description);
+                res.send({
+                    forecast: 'Current temperature in '+ location + ' is ' + temperature,
+                    Atmosephere: 'Atmosephere feels like there will be '+ description,
+                    address: req.query.address
+                })
+            }
+        })
+    })
+
+})
+
+
+app.get('/products', (req, res) => {
+    if(!req.query.search){
+        return res.send({
+            error: 'must provide Search term'
+        })
+    }
+
+    console.log(req.query.search)
     res.send({
-        forecast: 35,
-        location: 'Ahmedabad'
+        products: [req.query.search]
     })
 })
 
