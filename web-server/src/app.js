@@ -60,7 +60,7 @@ app.get('/weather', (req, res) => {
         if(error){
             // console.log(latitude, longitude)
             return res.send({
-                Error: error
+                error: error
             });
         }
 
@@ -68,16 +68,14 @@ app.get('/weather', (req, res) => {
 
             if(error){
                 return res.send({
-                    Error: error
+                    error: error
                 });
             }
 
             if(temperature !== undefined){
-                console.log('Current temperature in '+ location + ' is ' + temperature);
-                console.log('Atmosephere feels like there will be '+ description);
                 res.send({
                     forecast: 'Current temperature in '+ location + ' is ' + temperature,
-                    Atmosephere: 'Atmosephere feels like there will be '+ description,
+                    atmosephere: 'Atmosephere feels like there will be '+ description,
                     address: req.query.address
                 })
             }

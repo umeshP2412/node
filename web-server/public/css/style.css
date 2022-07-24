@@ -46,3 +46,26 @@ footer {
  .portrait {
      width: 250px;
  }
+
+ input{
+     border: 1px solid #cccccc;
+     border-radius: 2px;
+     padding: 8px;
+ }
+
+ button{
+     color: aliceblue;
+     cursor: pointer;
+     border: 1px solid #888888;
+     border-radius: 3px;
+     background: #888888;
+     padding: 8px;
+ }
+ button:hover{
+     background-color: black;
+
+ }
+
+ #message-1{
+     margin-top: 4px;
+ }
