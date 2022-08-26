@@ -9,7 +9,7 @@ const forecast = (latitude, longitude, callback) => {
             callback('Unable to connect weather Service!', undefined);
         }
         else if(body.error){
-            callback(response.body.error.info, undefined);
+            callback(body.error.info, undefined);
         }
         else{
             callback(undefined, {
